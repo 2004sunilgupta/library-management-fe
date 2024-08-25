@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authService } from "../services/authService";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { routerPath } from "../constants/routerConstant";
 
 const Login = () => {
@@ -8,24 +8,19 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [passowrd, setPassword] = useState('');
     const [error, setError] = useState('');
-    
+    const navigate = useNavigate();
 
-    // const handleOnChange = (e) => {
-    //     const {value, type} = e.target.value;
-    //     if(type === 'email') {
-    //         setEmail(value);
-    //     }
-    //     if(type === 'password') {
-    //         setPassword(value);
-    //     }
-    // }
+    useEffect(()=> {
+        if(authService.isLoggedIn()) {
+            navigate(routerPath.CREATE_USER);
+        }
+    }, []);
 
     const handleLogin = async () => {
         try {
             const res = await authService.login(email, passowrd);
-            debugger
             console.log(res);
-            Navigate(routerPath.LOGIN);
+            navigate(routerPath.CREATE_USER);
         } catch (error) {
             setError(error.message);
         }

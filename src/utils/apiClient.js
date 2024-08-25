@@ -11,7 +11,6 @@ export const apiClient = async (endpoint, { method = 'GET', headers = {}, body =
     };
   
     try {
-        debugger
       const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
   
       if (!response.ok) {
