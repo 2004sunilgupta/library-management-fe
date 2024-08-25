@@ -9,7 +9,7 @@ const Logout = () => {
         navigate(routerPath.LOGIN);
     }
     return (
-        <button type="button" onClick={onLogout}>Logout</button>
+        <button type="button" onClick={onLogout} className="btn btn-secondary">Logout</button>
     );
 }
 

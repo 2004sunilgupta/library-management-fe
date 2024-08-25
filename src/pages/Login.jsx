@@ -10,8 +10,8 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    useEffect(()=> {
-        if(authService.isLoggedIn()) {
+    useEffect(() => {
+        if (authService.isLoggedIn()) {
             navigate(routerPath.CREATE_USER);
         }
     }, []);
@@ -31,12 +31,14 @@ const Login = () => {
         <div className="page-login">
             <div className="container">
                 <h1>Login Page</h1>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-                <br/>
-                <input type="password" value={passowrd} onChange={(e) => setPassword(e.target.value)} required/> 
-                <br/>
+                <div className="form-group mb-3">
+                    <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                </div>
+                <div className="form-group mb-3">
+                    <input type="password" className="form-control" value={passowrd} onChange={(e) => setPassword(e.target.value)} required />
+                </div>
                 {error && <p>{error}</p>}
-                <button type="button" onClick={handleLogin}>Login</button>
+                <button type="button" onClick={handleLogin} className="btn btn-success">Login</button>
             </div>
         </div>
     );

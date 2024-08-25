@@ -37,5 +37,5 @@ export const authService = {
         // Get user data from local storage
         const user = localStorage.getItem('user');
         return user ? JSON.parse(user) : null;
-      }
+    }
 }
