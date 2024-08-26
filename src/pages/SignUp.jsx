@@ -4,6 +4,8 @@ import { role } from "../constants/userConstants";
 import { validateEmail } from "../utils/validation";
 import { createUser } from "../services/userService";
 import AutoDismissToast from "../components/AutoDismissToast";
+import { routerPath } from "../constants/routerConstant";
+import { NavLink } from "react-router-dom";
 
 const SignUp = () => {
     const userPayloadInit = {
@@ -22,6 +24,7 @@ const SignUp = () => {
         confirmPasswordErr: ''
     });
     const [isSingUpToast, setIsSignUpToast] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleFirstNameBlur = (value) => {
         if (!value) {
@@ -63,7 +66,7 @@ const SignUp = () => {
 
     const handleDisabled = () => {
         return error.emailErr.length || error.passwordErr.length || !firstName.length || !userPayload.email.length ||
-        !userPayload.password.length || !userPayload.confirmPassword.length;
+        !userPayload.password.length || !userPayload.confirmPassword.length || loading;
     }
 
     const handleSignUp = async () => {
@@ -73,6 +76,7 @@ const SignUp = () => {
         payload.email = _userPayload.email.trim();
         payload.password = _userPayload.password.trim();
         payload.role = role.STUDENT;
+        setLoading(true);
         try {
             const res = await createUser(payload);
             console.log(res);
@@ -82,6 +86,8 @@ const SignUp = () => {
             setUserPayload(userPayloadInit);
         } catch (err) {
             console.log(err.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -102,6 +108,7 @@ const SignUp = () => {
                     required={true} validationMessage={error.confirmPasswordErr} handleOnBlur={() => handleConfirmPasswordBlur(userPayload.confirmPassword)} />
                     <div className="text-center">
                         <button type="button" onClick={handleSignUp} className="btn btn-success" disabled={handleDisabled()}>Sign Up</button>
+                        <p className="pt-3 mb-0">Already a member? <NavLink to={routerPath.LOGIN}>Login</NavLink></p>
                     </div>
                     {isSingUpToast && <AutoDismissToast message={'Sing Up Success'} showToast={isSingUpToast} setIsSignUpToast={setIsSignUpToast}/>}
                 </div>

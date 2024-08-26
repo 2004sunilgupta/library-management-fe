@@ -1,5 +1,9 @@
 export const routerPath = {
+    DEFAULT: '/',
     LOGIN: '/login',
     SIGN_UP: '/sign-up',
-    CREATE_USER: '/create-user'
+    USERS: '/users',
+    PROFILE: '/profile',
+    BOOKS: '/books',
+    BOOK_OPERATIONS: '/book-operations',
 }
