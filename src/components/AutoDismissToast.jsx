@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Toast, ToastContainer } from "react-bootstrap";
 
 const AutoDismissToast = (props) => {
-    const { message, showToast, setIsSignUpToast } = props;
+    const { message, showToast, setShowToast, position } = props;
     useEffect(() => {
         let timerid = setTimeout(() => {
-            setIsSignUpToast(false);
+            setShowToast(false);
         }, 1000);
 
         return () => {
@@ -13,8 +13,8 @@ const AutoDismissToast = (props) => {
         }
     }, [])
     return (
-        <ToastContainer position="top-end" className="p-3">
-            <Toast show={showToast} onClose={() => setIsSignUpToast(false)}>
+        <ToastContainer position={ position ? position : 'top-end'} className="p-3">
+            <Toast show={showToast} onClose={() => setShowToast(false)}>
                 <Toast.Body>{message}</Toast.Body>
             </Toast>
         </ToastContainer>

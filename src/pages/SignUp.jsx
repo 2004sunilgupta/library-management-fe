@@ -110,7 +110,7 @@ const SignUp = () => {
                         <button type="button" onClick={handleSignUp} className="btn btn-success" disabled={handleDisabled()}>Sign Up</button>
                         <p className="pt-3 mb-0">Already a member? <NavLink to={routerPath.LOGIN}>Login</NavLink></p>
                     </div>
-                    {isSingUpToast && <AutoDismissToast message={'Sing Up Success'} showToast={isSingUpToast} setIsSignUpToast={setIsSignUpToast}/>}
+                    {isSingUpToast && <AutoDismissToast message={'Sing Up Success'} showToast={isSingUpToast} setShowToast={setIsSignUpToast}/>}
                 </div>
             </div>
         </div>

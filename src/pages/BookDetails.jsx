@@ -22,7 +22,7 @@ const BookDetails = () => {
                     setError(result.message);
                 }
             } catch (error) {
-                setError('Failed to fetch user details');
+                setError('Failed to fetch book details');
             } finally {
                 setLoading(false);
             }
