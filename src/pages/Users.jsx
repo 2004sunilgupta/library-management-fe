@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getUsers } from "../services/userService";
 import { NavLink } from "react-router-dom";
 import { routerPath } from "../constants/routerConstant";
+import Loader from "../components/Loader";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -31,7 +32,7 @@ const Users = () => {
     }, []);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <Loader/>;
     }
 
     if (error) {
@@ -42,8 +43,8 @@ const Users = () => {
         <div className="page-user">
             <div className="container">
                 <h1 className="fs-3">Users</h1>
-                <div className="card">
-                    <table class="table card-table">
+                <div className="card card-table">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

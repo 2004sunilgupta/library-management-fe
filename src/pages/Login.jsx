@@ -19,7 +19,7 @@ const Login = () => {
 
     useEffect(() => {
         if (authService.isLoggedIn()) {
-            navigate(routerPath.USERS);
+            navigate(routerPath.BOOKS);
         }
     }, []);
 
@@ -28,7 +28,7 @@ const Login = () => {
         try {
             const res = await authService.login(email, password);
             console.log(res);
-            navigate(routerPath.USERS);
+            navigate(routerPath.BOOKS);
         } catch (err) {
             console.log(err.message);
             setError({ ...error, errMsg: "Email or Password didn't matched" });

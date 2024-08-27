@@ -1,22 +1,23 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserById } from "../services/userService";
+import { getBookById } from "../services/bookService";
+import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
+import { bookImg } from "../constants/imgConst";
 
-const UserDetails = () => {
+const BookDetails = () => {
     const { id } = useParams(); // Get the id from the route parameters
-    const [user, setUser] = useState(null);
+    const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchUserDetail = async () => {
+        const fetchBookDetail = async () => {
             setLoading(true);
             setError(null);
             try {
-                const result = await getUserById(id);
+                const result = await getBookById(id);
                 if (result.success) {
-                    setUser(result.data);
+                    setBook(result.data);
                 } else {
                     setError(result.message);
                 }
@@ -27,7 +28,7 @@ const UserDetails = () => {
             }
         };
 
-        fetchUserDetail();
+        fetchBookDetail();
     }, [id]);
 
     if (loading) {
@@ -39,54 +40,59 @@ const UserDetails = () => {
     }
 
     return (
-        <div className="page-user-details">
+        <div className="page-book-details">
             <div className="container">
-                {user ? (
+                {book ? (
                     <>
-                        <h1 className="fs-3 mb-3 mb-md-5">{`${user.name.split(' ')[0]}'s`} Details</h1>
+                        <h1 className="fs-3 mb-3 mb-md-5">Book Details</h1>
                         <div className="row">
+                            <div className="col-md-6">
+                                <figure className="img-holder">
+                                    {Object.keys(bookImg).includes(book.imgURL) && <img className="img-fluid" src={bookImg[book.imgURL]} />}
+                                </figure>
+                            </div>
                             <div className="col-md-6">
                                 <div className="row mb-3 align-items-center">
                                     <div className="col-md-6">
-                                        <h2 className="fs-6 mb-md-0">Full Name</h2>
+                                        <h2 className="fs-6 mb-md-0">Book Name</h2>
                                     </div>
                                     <div className="col-md-6">
-                                        {user.name}
+                                        {book.title}
                                     </div>
                                 </div>
                                 <div className="row mb-3 align-items-center">
                                     <div className="col-md-6">
-                                        <h2 className="fs-6 mb-md-0">Email</h2>
+                                        <h2 className="fs-6 mb-md-0">Book Id</h2>
                                     </div>
                                     <div className="col-md-6">
-                                        {user.email}
+                                        {book.bookId}
                                     </div>
                                 </div>
-                                <h2 className="fs-6">Books Issued</h2>
+                                <h2 className="fs-6">Book Issued to</h2>
                                 {
-                                    user.issuedBooks.length ?
+                                    book.issuedTo ?
                                         <>
                                         </>
                                         :
-                                        <p>No Books Issued</p>
+                                        <p>Not Assingned</p>
                                 }
-                                <h2 className="fs-6">Books Reserved</h2>
+                                <h2 className="fs-6">Book Reserved</h2>
                                 {
-                                    user.reservedBooks.length ?
+                                    book.length ?
                                         <>
                                         </>
                                         :
-                                        <p>No Books Reserved</p>
+                                        <p>Not Reserved</p>
                                 }
                             </div>
                         </div>
                     </>
                 ) : (
-                    <p>User not found</p>
+                    <p>Book not found</p>
                 )}
             </div>
         </div>
     );
 }
 
-export default UserDetails;
+export default BookDetails;

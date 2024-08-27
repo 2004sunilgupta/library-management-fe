@@ -9,12 +9,13 @@ import { authService } from "../services/authService";
 import Books from "../pages/Books";
 import BookOperations from "../pages/BookOperations";
 import UserDetails from "../pages/UserDetails";
+import BookDetails from "../pages/BookDetails";
 
 const AppRoutes = () => {
     return (
         <Routes>
             {/* Default Routes */}
-            <Route path="/" element={authService.isLoggedIn() ? <Navigate to={routerPath.USERS} /> : <Navigate to={routerPath.LOGIN} />} />
+            <Route path="/" element={authService.isLoggedIn() ? <Navigate to={routerPath.BOOKS} /> : <Navigate to={routerPath.LOGIN} />} />
             {/* Public Routes */}
             <Route path={routerPath.LOGIN} element={<Login />} />
             <Route path={routerPath.SIGN_UP} element={<SignUp />} />
@@ -24,11 +25,11 @@ const AppRoutes = () => {
             <Route path={`${routerPath.USERS}/:id`}
                 element={<PrivateRoutes children={<UserDetails />} />} />
             <Route path={routerPath.BOOKS}
-                element={
-                    <PrivateRoutes children={<Books />} />} />
+                element={<PrivateRoutes children={<Books />} />} />
+            <Route path={`${routerPath.BOOKS}/:id`}
+                element={<PrivateRoutes children={<BookDetails />} />} />
             <Route path={routerPath.BOOK_OPERATIONS}
-                element={
-                    <PrivateRoutes children={<BookOperations />} />} />
+                element={<PrivateRoutes children={<BookOperations />} />} />
             {/* Handling Fallback routes */}
             <Route path="*" element={<NotFound />} />
         </Routes>

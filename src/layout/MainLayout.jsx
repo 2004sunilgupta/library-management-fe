@@ -5,7 +5,7 @@ const MainLayout = ({children}) => {
     return (
         <div className="main-layout">
             <Header/>
-            <div className="main-body py-4">
+            <div className="main-body">
                 {children}
             </div>
             <Footer/>

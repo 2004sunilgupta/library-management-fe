@@ -17,8 +17,8 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            <NavLink className="nav-link" to={routerPath.USERS}>Users</NavLink>
                             <NavLink className="nav-link" to={routerPath.BOOKS}>Books</NavLink>
+                            <NavLink className="nav-link" to={routerPath.USERS}>Users</NavLink>
                             <NavLink className="nav-link" to={routerPath.BOOK_OPERATIONS}>Book Operations</NavLink>
                         </Nav>
                         <Nav>
