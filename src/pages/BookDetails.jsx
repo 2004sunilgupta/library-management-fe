@@ -6,6 +6,7 @@ import { bookImg } from "../constants/imgConst";
 import { getUserById } from "../services/userService";
 import UsersTable from "../components/UsersTable";
 import { routerPath } from "../constants/routerConstant";
+import { formatDate } from "../utils/formateDate";
 
 const BookDetails = () => {
     const { id } = useParams(); // Get the id from the route parameters
@@ -94,6 +95,16 @@ const BookDetails = () => {
                                         {book.bookId}
                                     </div>
                                 </div>
+                                {book.dueDate &&
+                                    <div className="row mb-3 align-items-center">
+                                        <div className="col-md-6">
+                                            <h2 className="fs-6 mb-md-0">Book Due Date</h2>
+                                        </div>
+                                        <div className="col-md-6">
+                                            {formatDate(book.dueDate, 'DD/MM/YYYY')}
+                                        </div>
+                                    </div>
+                                }
                                 <div className="row mb-3 align-items-center">
                                     <div className="col-md-6">
                                         <h2 className="fs-6 mb-md-0">Book Issued to</h2>

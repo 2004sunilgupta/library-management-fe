@@ -24,7 +24,7 @@ const SignUp = () => {
         passwordErr: '',
         confirmPasswordErr: ''
     });
-    const [isSingUpToast, setIsSignUpToast] = useState(false);
+    const [isSignUpToast, setIsSignUpToast] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -120,7 +120,7 @@ const SignUp = () => {
                         </button>
                         {authService.isLoggedIn() ? <button type="button" className="btn btn-outline-success ms-3" onClick={handleGoBack}>Go Back</button> : <p className="pt-3 mb-0">Already a member? <NavLink to={routerPath.LOGIN}>Login</NavLink></p>}
                     </div>
-                    {isSingUpToast && <AutoDismissToast message={'Sing Up Success'} showToast={isSingUpToast} setShowToast={setIsSignUpToast} />}
+                    {isSignUpToast && <AutoDismissToast message={'Sing Up Success'} showToast={isSignUpToast} setShowToast={setIsSignUpToast} />}
                 </div>
             </div>
         </div>

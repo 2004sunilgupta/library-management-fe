@@ -4,6 +4,7 @@ import Loader from "../components/Loader";
 import { bookImg } from "../constants/imgConst";
 import { routerPath } from "../constants/routerConstant";
 import { NavLink } from "react-router-dom";
+import PageHeader from "../components/PageHeader";
 
 const Books = () => {
     const [books, setBooks] = useState([]);
@@ -43,14 +44,15 @@ const Books = () => {
     return (
         <div className="page-books">
             <div className="container">
-                <h1 className="fs-3 mb-4">Books</h1>
+                <PageHeader title="Books" actions={
+                    <NavLink className="btn btn-success" to={routerPath.ADD_BOOK}>Add Book</NavLink>} />
                 {
                     books.length ?
                         <div className="row">
                             {
                                 books.map((book, key) => {
                                     return (
-                                        <div key={key} className="col-lg-6">
+                                        <div key={key} className="col-lg-6 mb-3">
                                             <div className="card book-card">
                                                 <div className="book-wrap">
                                                     <div className="book-img">

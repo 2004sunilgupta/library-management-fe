@@ -10,6 +10,7 @@ import Books from "../pages/Books";
 import BookOperations from "../pages/BookOperations";
 import UserDetails from "../pages/UserDetails";
 import BookDetails from "../pages/BookDetails";
+import AddBook from "../pages/AddBook";
 
 const AppRoutes = () => {
     return (
@@ -26,6 +27,8 @@ const AppRoutes = () => {
                 element={<PrivateRoutes children={<UserDetails />} />} />
             <Route path={routerPath.BOOKS}
                 element={<PrivateRoutes children={<Books />} />} />
+            <Route path={routerPath.ADD_BOOK}
+                element={<PrivateRoutes children={<AddBook />} />} />
             <Route path={`${routerPath.BOOKS}/:id`}
                 element={<PrivateRoutes children={<BookDetails />} />} />
             <Route path={routerPath.BOOK_OPERATIONS}

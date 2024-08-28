@@ -5,5 +5,6 @@ export const routerPath = {
     USERS: '/users',
     PROFILE: '/profile',
     BOOKS: '/books',
+    ADD_BOOK: '/add-book',
     BOOK_OPERATIONS: '/book-operations',
 }
