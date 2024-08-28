@@ -22,7 +22,7 @@ const Header = () => {
                             <NavLink className="nav-link" to={routerPath.BOOK_OPERATIONS}>Book Operations</NavLink>
                         </Nav>
                         <Nav>
-                            <Logout />
+                            <Logout btnClass="btn btn-secondary btn-sm"/>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

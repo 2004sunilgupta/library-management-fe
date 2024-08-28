@@ -72,12 +72,12 @@ const BookDetails = () => {
                     <>
                         <h1 className="fs-3 mb-3 mb-md-4">Book Details</h1>
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-5">
                                 <figure className="img-holder">
                                     {Object.keys(bookImg).includes(book.imgURL) && <img className="img-fluid" src={bookImg[book.imgURL]} alt={book.imgURL} />}
                                 </figure>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-7">
                                 <div className="row mb-3 align-items-center">
                                     <div className="col-md-6">
                                         <h2 className="fs-6 mb-md-0">Book Name</h2>

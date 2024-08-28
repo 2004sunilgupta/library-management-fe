@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { getUsers } from "../services/userService";
 import Loader from "../components/Loader";
 import UsersTable from "../components/UsersTable";
+import PageHeader from "../components/PageHeader";
+import { NavLink } from "react-router-dom";
+import { routerPath } from "../constants/routerConstant";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -41,7 +44,9 @@ const Users = () => {
     return (
         <div className="page-user">
             <div className="container">
-                <h1 className="fs-3 mb-4">Users</h1>
+                <PageHeader title="Users" actions={
+                    <NavLink className="btn btn-success" to={routerPath.SIGN_UP}>Add User</NavLink>
+                } />
                 <UsersTable users={users} />
             </div>
         </div>

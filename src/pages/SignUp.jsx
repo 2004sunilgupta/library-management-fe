@@ -5,7 +5,8 @@ import { validateEmail } from "../utils/validation";
 import { createUser } from "../services/userService";
 import AutoDismissToast from "../components/AutoDismissToast";
 import { routerPath } from "../constants/routerConstant";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { authService } from "../services/authService";
 
 const SignUp = () => {
     const userPayloadInit = {
@@ -25,6 +26,7 @@ const SignUp = () => {
     });
     const [isSingUpToast, setIsSignUpToast] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleFirstNameBlur = (value) => {
         if (!value) {
@@ -66,11 +68,11 @@ const SignUp = () => {
 
     const handleDisabled = () => {
         return error.emailErr.length || error.passwordErr.length || !firstName.length || !userPayload.email.length ||
-        !userPayload.password.length || !userPayload.confirmPassword.length || loading;
+            !userPayload.password.length || !userPayload.confirmPassword.length || loading;
     }
 
     const handleSignUp = async () => {
-        let _userPayload = {...userPayload};
+        let _userPayload = { ...userPayload };
         let payload = {};
         payload.name = (`${firstName} ${lastName}`).trim();
         payload.email = _userPayload.email.trim();
@@ -91,26 +93,34 @@ const SignUp = () => {
         }
     }
 
+    const handleGoBack = () => {
+        navigate(-1);
+    }
+
     return (
         <div className="page-signup">
             <div className="page-box">
                 <div className="container">
-                    <h1 className="fs-3 text-center">Sign Up</h1>
+                    <h1 className="fs-3 text-center">
+                        {authService.isLoggedIn() ? 'Add User' : 'Sign Up'}
+                    </h1>
                     <FormInput type="text" label={'First Name'} value={firstName} handleChange={(e) => setFirstName(e.target.value)} required={true}
                         validationMessage={error.nameErr} handleOnBlur={() => handleFirstNameBlur(firstName)} />
                     <FormInput type="text" label={'Last Name'} value={lastName} handleChange={(e) => setLastName(e.target.value)} />
-                    <FormInput type="email" label={'Email'} value={userPayload.email} handleChange={(e) => setUserPayload({...userPayload, email: e.target.value})} 
-                    required={true} validationMessage={error.emailErr} handleOnBlur={() => handleEmailBlur(userPayload.email)} />
-                    <FormInput type="password" label={'Password'} value={userPayload.password} handleChange={(e) => setUserPayload({...userPayload, password: e.target.value})} 
-                    required={true} validationMessage={error.passwordErr} handleOnBlur={() => handlePasswordBlur(userPayload.password)} />
-                    <FormInput type="password" label={'Confirm Password'} value={userPayload.confirmPassword} 
-                    handleChange={(e) => setUserPayload({...userPayload, confirmPassword: e.target.value})}
-                    required={true} validationMessage={error.confirmPasswordErr} handleOnBlur={() => handleConfirmPasswordBlur(userPayload.confirmPassword)} />
+                    <FormInput type="email" label={'Email'} value={userPayload.email} handleChange={(e) => setUserPayload({ ...userPayload, email: e.target.value })}
+                        required={true} validationMessage={error.emailErr} handleOnBlur={() => handleEmailBlur(userPayload.email)} />
+                    <FormInput type="password" label={'Password'} value={userPayload.password} handleChange={(e) => setUserPayload({ ...userPayload, password: e.target.value })}
+                        required={true} validationMessage={error.passwordErr} handleOnBlur={() => handlePasswordBlur(userPayload.password)} />
+                    <FormInput type="password" label={'Confirm Password'} value={userPayload.confirmPassword}
+                        handleChange={(e) => setUserPayload({ ...userPayload, confirmPassword: e.target.value })}
+                        required={true} validationMessage={error.confirmPasswordErr} handleOnBlur={() => handleConfirmPasswordBlur(userPayload.confirmPassword)} />
                     <div className="text-center">
-                        <button type="button" onClick={handleSignUp} className="btn btn-success" disabled={handleDisabled()}>Sign Up</button>
-                        <p className="pt-3 mb-0">Already a member? <NavLink to={routerPath.LOGIN}>Login</NavLink></p>
+                        <button type="button" onClick={handleSignUp} className="btn btn-success" disabled={handleDisabled()}>
+                            {authService.isLoggedIn() ? 'Add User' : 'Sign Up'}
+                        </button>
+                        {authService.isLoggedIn() ? <button type="button" className="btn btn-outline-success ms-3" onClick={handleGoBack}>Go Back</button> : <p className="pt-3 mb-0">Already a member? <NavLink to={routerPath.LOGIN}>Login</NavLink></p>}
                     </div>
-                    {isSingUpToast && <AutoDismissToast message={'Sing Up Success'} showToast={isSingUpToast} setShowToast={setIsSignUpToast}/>}
+                    {isSingUpToast && <AutoDismissToast message={'Sing Up Success'} showToast={isSingUpToast} setShowToast={setIsSignUpToast} />}
                 </div>
             </div>
         </div>

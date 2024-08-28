@@ -36,6 +36,10 @@
     padding: 0;
 }
 
+.page-header {
+    margin-bottom: 24px;
+}
+
 .card-table {
     overflow: auto;
 }
