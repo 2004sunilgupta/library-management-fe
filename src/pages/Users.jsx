@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../services/userService";
-import { NavLink } from "react-router-dom";
-import { routerPath } from "../constants/routerConstant";
 import Loader from "../components/Loader";
+import UsersTable from "../components/UsersTable";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -42,38 +41,8 @@ const Users = () => {
     return (
         <div className="page-user">
             <div className="container">
-                <h1 className="fs-3">Users</h1>
-                <div className="card card-table">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.length ?
-                                <>
-                                    {
-                                        users.map((user, key) => {
-                                            return (
-                                                <tr key={key}>
-                                                    <th scope="row">{key + 1}</th>
-                                                    <td>{user.name}</td>
-                                                    <td>{user.email}</td>
-                                                    <td><NavLink className="btn btn-sm btn-success" to={`${routerPath.USERS}/${user._id}`}>View Details</NavLink></td>
-                                                </tr>
-                                            );
-                                        })
-                                    }
-                                </>
-                                :
-                                <tr><td colSpan={4} className="text-center">No Users</td></tr>}
-                        </tbody>
-                    </table>
-                </div>
+                <h1 className="fs-3 mb-4">Users</h1>
+                <UsersTable users={users} />
             </div>
         </div>
     );

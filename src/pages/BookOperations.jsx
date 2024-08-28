@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Nav, Tab, Tabs } from "react-bootstrap";
+import { Tab, Tabs } from "react-bootstrap";
 import FormInput from "../components/FormInput";
 import { validateEmail } from "../utils/validation";
 import { bookIssue, bookRenew, bookReturn } from "../services/bookOperationsService";

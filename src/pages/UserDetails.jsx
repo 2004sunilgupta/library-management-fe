@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUserById } from "../services/userService";
 import Loader from "../components/Loader";
+import { getBookById } from "../services/bookService";
+import BooksTable from "../components/BooksTable";
 
 const UserDetails = () => {
     const { id } = useParams(); // Get the id from the route parameters
     const [user, setUser] = useState(null);
+    const [booksIssued, setBooksIssued] = useState([]);
+    const [booksReserved, setBooksReserved] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -17,6 +21,22 @@ const UserDetails = () => {
                 const result = await getUserById(id);
                 if (result.success) {
                     setUser(result.data);
+                    if (result.data.issuedBooks.length) {
+                        // Fetch all issued book details in parallel
+                        const bookDetailsPromises = result.data.issuedBooks.map(bookId => fetchBookDetails(bookId));
+                        const booksDetails = await Promise.all(bookDetailsPromises);
+
+                        // Update state with issued books details
+                        setBooksIssued(booksDetails);
+                    }
+                    if (result.data.reservedBooks.length) {
+                        // Fetch all reserved book details in parallel
+                        const bookDetailsPromises = result.data.reservedBooks.map(bookId => fetchBookDetails(bookId));
+                        const booksDetails = await Promise.all(bookDetailsPromises);
+
+                        // Update state with reserved books details
+                        setBooksReserved(booksDetails);
+                    }
                 } else {
                     setError(result.message);
                 }
@@ -29,6 +49,15 @@ const UserDetails = () => {
 
         fetchUserDetail();
     }, [id]);
+
+    const fetchBookDetails = async (id) => {
+        try {
+            const res = await getBookById(id);
+            return res.data;
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
 
     if (loading) {
         return <Loader />;
@@ -65,16 +94,14 @@ const UserDetails = () => {
                                 <h2 className="fs-6">Books Issued</h2>
                                 {
                                     user.issuedBooks.length ?
-                                        <>
-                                        </>
+                                        <BooksTable books={booksIssued} cardTableClass="mb-3" />
                                         :
                                         <p>No Books Issued</p>
                                 }
                                 <h2 className="fs-6">Books Reserved</h2>
                                 {
                                     user.reservedBooks.length ?
-                                        <>
-                                        </>
+                                        <BooksTable books={booksReserved} cardTableClass="mb-3" />
                                         :
                                         <p>No Books Reserved</p>
                                 }

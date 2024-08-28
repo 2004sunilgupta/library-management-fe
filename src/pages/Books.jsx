@@ -43,7 +43,7 @@ const Books = () => {
     return (
         <div className="page-books">
             <div className="container">
-                <h1 className="fs-3">Books</h1>
+                <h1 className="fs-3 mb-4">Books</h1>
                 {
                     books.length ?
                         <div className="row">

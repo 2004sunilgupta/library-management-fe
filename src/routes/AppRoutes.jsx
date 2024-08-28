@@ -15,7 +15,7 @@ const AppRoutes = () => {
     return (
         <Routes>
             {/* Default Routes */}
-            <Route path="/" element={authService.isLoggedIn() ? <Navigate to={routerPath.BOOKS} /> : <Navigate to={routerPath.LOGIN} />} />
+            <Route path={routerPath.DEFAULT} element={authService.isLoggedIn() ? <Navigate to={routerPath.BOOKS} /> : <Navigate to={routerPath.LOGIN} />} />
             {/* Public Routes */}
             <Route path={routerPath.LOGIN} element={<Login />} />
             <Route path={routerPath.SIGN_UP} element={<SignUp />} />
